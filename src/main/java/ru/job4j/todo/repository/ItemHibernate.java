@@ -46,21 +46,24 @@ public class ItemHibernate {
 
     public List<Item> findAll() {
         return this.tx(
-                session -> session.createQuery("from ru.job4j.todo.model.Item order by id", Item.class)
+                session -> session.createQuery(
+                        "from ru.job4j.todo.model.Item order by id",
+                        Item.class)
                         .list());
     }
 
     public List<Item> findCompleteTasks() {
         return this.tx(
-                session -> session.createQuery("from ru.job4j.todo.model.Item where done = false", Item.class)
+                session -> session.createQuery(
+                        "from ru.job4j.todo.model.Item where done = false",
+                        Item.class)
                         .list());
     }
-
 
     public void updateStatus(int id, boolean done) {
         this.tx(session -> session.createQuery(
                 "update ru.job4j.todo.model.Item set done = :done where id = :id")
-                .setParameter("done", !done)
+                .setParameter("done", done)
                 .setParameter("id", id)
                 .executeUpdate());
     }

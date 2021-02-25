@@ -25,7 +25,7 @@ public class CreateItemServlet extends HttpServlet {
         Timestamp created = new Timestamp(new Date().getTime());
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
-        store.add(new Item(description, created, user));
+        store.add(Item.of(description, created, user));
         resp.sendRedirect(req.getContextPath());
     }
 }

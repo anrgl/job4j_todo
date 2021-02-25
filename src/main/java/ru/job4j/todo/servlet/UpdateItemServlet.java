@@ -15,7 +15,7 @@ public class UpdateItemServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("itemId"));
-        boolean done = !Boolean.parseBoolean(req.getParameter("done"));
+        boolean done = Boolean.parseBoolean(req.getParameter("done"));
         store.updateStatus(id, done);
     }
 }
