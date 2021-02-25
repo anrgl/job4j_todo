@@ -17,13 +17,13 @@ public class Item {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Item() {}
-
-    public Item(String description, Timestamp created, User user) {
-        this.description = description;
-        this.created = created;
-        this.done = false;
-        this.user = user;
+    public static Item of(String description, Timestamp created, User user) {
+        Item item = new Item();
+        item.setDescription(description);
+        item.setCreated(created);
+        item.setDone(false);
+        item.setUser(user);
+        return item;
     }
 
     public int getId() {

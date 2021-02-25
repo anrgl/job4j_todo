@@ -45,9 +45,10 @@ public class UserHibernate {
 
     public User findByEmail(String email) {
         return this.tx(
-                session ->
-                        session.createQuery("from ru.job4j.todo.model.User where email = :email", User.class)
-                                .setParameter("email", email)
-                                .getSingleResult());
+                session -> session.createQuery(
+                        "from ru.job4j.todo.model.User where email = :email",
+                        User.class)
+                        .setParameter("email", email)
+                        .getSingleResult());
     }
 }

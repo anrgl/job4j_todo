@@ -10,10 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class RegistrationServlet extends HttpServlet {
-    private final UserHibernate store = new UserHibernate();
+    private final UserHibernate store = UserHibernate.instOf();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
         req.getRequestDispatcher("registration.jsp").forward(req, resp);
     }
 
@@ -23,7 +24,7 @@ public class RegistrationServlet extends HttpServlet {
         String name = req.getParameter("name");
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-        store.add(new User(name, email, password));
+        store.add(User.of(name, email, password));
         resp.sendRedirect(req.getContextPath() + "/login");
     }
 }

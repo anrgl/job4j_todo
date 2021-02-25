@@ -13,13 +13,12 @@ public class User {
     private String email;
     private String password;
 
-    public User() {
-    }
-
-    public User(String name, String email, String password) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
+    public static User of(String name, String email, String password) {
+        User user = new User();
+        user.setName(name);
+        user.setEmail(email);
+        user.setPassword(password);
+        return user;
     }
 
     public int getId() {
