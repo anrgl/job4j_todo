@@ -6,22 +6,21 @@ import org.hibernate.Transaction;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import ru.job4j.todo.model.Item;
+import ru.job4j.todo.model.User;
 
-import java.util.List;
 import java.util.function.Function;
 
-public class ItemHibernate {
+public class UserHibernate {
     private final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
             .configure().build();
     private final SessionFactory sf = new MetadataSources(registry)
             .buildMetadata().buildSessionFactory();
 
     private static final class Lazy {
-        private static final ItemHibernate INST = new ItemHibernate();
+        private static final UserHibernate INST = new UserHibernate();
     }
 
-    public static ItemHibernate instOf() {
+    public static UserHibernate instOf() {
         return Lazy.INST;
     }
 
@@ -40,28 +39,15 @@ public class ItemHibernate {
         }
     }
 
-    public void add(Item item) {
-        this.tx(session -> session.save(item));
+    public void add(User user) {
+        this.tx(session -> session.save(user));
     }
 
-    public List<Item> findAll() {
+    public User findByEmail(String email) {
         return this.tx(
-                session -> session.createQuery("from ru.job4j.todo.model.Item order by id", Item.class)
-                        .list());
-    }
-
-    public List<Item> findCompleteTasks() {
-        return this.tx(
-                session -> session.createQuery("from ru.job4j.todo.model.Item where done = false", Item.class)
-                        .list());
-    }
-
-
-    public void updateStatus(int id, boolean done) {
-        this.tx(session -> session.createQuery(
-                "update ru.job4j.todo.model.Item set done = :done where id = :id")
-                .setParameter("done", !done)
-                .setParameter("id", id)
-                .executeUpdate());
+                session ->
+                        session.createQuery("from ru.job4j.todo.model.User where email = :email", User.class)
+                                .setParameter("email", email)
+                                .getSingleResult());
     }
 }
