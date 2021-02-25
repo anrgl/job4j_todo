@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class GetAllItemsServlet extends HttpServlet {
-    private final ItemHibernate store = new ItemHibernate();
+    private final ItemHibernate store = ItemHibernate.instOf();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -23,7 +23,5 @@ public class GetAllItemsServlet extends HttpServlet {
                 ? store.findCompleteTasks()
                 : store.findAll();
         new Gson().toJson(items, resp.getWriter());
-        System.out.println("Get All Items Servlet");
-        System.out.println(isDone);
     }
 }

@@ -57,6 +57,7 @@
                     '<th>Desc</th>' +
                     '<th>Created</th>' +
                     '<th>Done</th>' +
+                    '<th>User</th>' +
                     '</tr></thead><tbody>';
 
                 for (let i = 0; i < items.length; i++) {
@@ -71,6 +72,7 @@
                         + 'value="' + items[i].id + '"'
                         + (!!items[i].done ? "checked" : "") + '>'
                         + '</td>';
+                    s += '<td>' + (items[i].user === undefined ? "no user" : items[i].user.name)+ '</td>';
                     s += '</tr>';
                 }
                 s += '</tbody></table>';
