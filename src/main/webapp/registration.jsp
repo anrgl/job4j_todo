@@ -8,7 +8,7 @@
 <body>
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-8">
+        <div class="col-8 mt-5">
             <form action="<%=request.getContextPath()%>/registration" method="post">
                 <div class="form-group">
                     <label for="name">Name:</label>
