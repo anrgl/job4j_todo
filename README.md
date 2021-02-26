@@ -3,7 +3,7 @@
 ## О проекте
 Клиент-серверное приложение (Servlet JSP). Список дел (TODO).
 
-## Функиональность
+## Функциональность
 - Регистрация пользователя.
 - Авторизация.
 - Добавление задач.
@@ -12,11 +12,11 @@
  - Общая схема клиент-серверного приложения.
  - Протоколы HTTP и HTTPS.
  - Servlet.
- - JSP, MVC, JSLT.
+ - JSP, MVC.
  - Filter, Session, Auth.
  - Клиентские языки HTML, JS, jQuery, AJAX, CSS, Bootstrap 4.
  
-### Screenshots
+### Изображения
 ![Registration page](images/todo_reg_page.png "Registration Page")
 ![Login page](images/todo_login_page.png "Registration Page")
 ![Add new item page](images/todo_add_item_page.png "Registration Page")
