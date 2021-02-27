@@ -16,7 +16,7 @@
                 </div>
                 <div class="form-group">
                     <label for="password">Password:</label>
-                    <input type="text" id="password" class="form-control" name="password">
+                    <input type="password" id="password" class="form-control" name="password">
                 </div>
                 <p>No account? Sign up <a href="<%= request.getContextPath() %>/registration">here</a></p>
                 <button type="submit" class="btn btn-primary">Sign In</button>

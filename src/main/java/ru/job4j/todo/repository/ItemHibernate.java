@@ -47,17 +47,18 @@ public class ItemHibernate {
     public List<Item> findAll() {
         return this.tx(
                 session -> session.createQuery(
-                        "from ru.job4j.todo.model.Item order by id",
+                        "select distinct i from Item i join fetch i.categories order by i.id",
                         Item.class)
                         .list());
     }
 
     public List<Item> findCompleteTasks() {
-        return this.tx(
-                session -> session.createQuery(
-                        "from ru.job4j.todo.model.Item where done = false",
-                        Item.class)
-                        .list());
+        return this.tx(session -> session.createQuery(
+                "select distinct i from Item i "
+                        + "join fetch i.categories "
+                        + "where i.done = false order by i.id",
+                Item.class)
+                .list());
     }
 
     public void updateStatus(int id, boolean done) {

@@ -17,13 +17,16 @@
             type: 'GET',
             url: 'http://localhost:8080/todo/create',
             data: {
-                description: $("#description").val()
+                description: $("#description").val(),
+                categories: $("option:selected").map(function () {
+                    return this.value
+                }).get().join(" ")
             },
             dataType: 'text'
         }).done(function (data) {
-            alert('Data send OK!')
+            alert('Data send OK!');
         }).fail(function (data) {
-            alert('Something wrong!')
+            alert('Something wrong!');
         });
     }
 
@@ -58,6 +61,7 @@
                     '<th>Created</th>' +
                     '<th>Done</th>' +
                     '<th>User</th>' +
+                    '<th>Categories</th>' +
                     '</tr></thead><tbody>';
 
                 for (let i = 0; i < items.length; i++) {
@@ -72,23 +76,50 @@
                         + 'value="' + items[i].id + '"'
                         + (!!items[i].done ? "checked" : "") + '>'
                         + '</td>';
-                    s += '<td>' + (items[i].user === undefined ? "no user" : items[i].user.name)+ '</td>';
+                    s += '<td>' + items[i].user.name + '</td>';
+                    s += '<td>' + items[i].categories.map(function (category) {
+                        return category.name;
+                    }).join(', ');
+                    +'</td>';
                     s += '</tr>';
                 }
                 s += '</tbody></table>';
                 $("#result").html(s);
             }
-        })
+        });
     }
 
+    function getCategories() {
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:8080/todo/getcategories',
+            success: function (result) {
+                const categories = $.parseJSON(result);
+                let s = '<select class="form-control" id="categories" name="categories" multiple>';
+                for (let i = 0; i < categories.length; i++) {
+                    s += '<option value="' + categories[i].id + '">' + categories[i].name + '</option>';
+                }
+                s += '</select>';
+                $('#categories').html(s);
+            }
+        });
+    }
+
+    $(document).ready(getCategories());
     $(document).ready(getItems());
 </script>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-8 mt-5">
-            <div class="form-group">
-                <label for="description">Description</label>
-                <input class="form-control" type="text" name="description" id="description">
+            <div class="row">
+                <div class="form-group col-8">
+                    <label for="description">Description</label>
+                    <input class="form-control" type="text" name="description" id="description">
+                </div>
+                <div class="form-group col-4">
+                    <label for="categories">Categories</label>
+                    <span id="categories"></span>
+                </div>
             </div>
             <button class="btn btn-primary" type="submit" onclick="send();">Save</button>
             <div class="form-check mt-5">
