@@ -21,4 +21,4 @@
 ### Изображения
 ![Registration page](images/todo_reg_page.png "Registration Page")
 ![Login page](images/todo_login_page.png "Registration Page")
-![Add new item page](images/todo_add_item_page.png "Registration Page")
+![Add new item page](images/todo_add_item_with_cats_page.png "Registration Page")
