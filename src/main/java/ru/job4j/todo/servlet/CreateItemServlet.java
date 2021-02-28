@@ -12,8 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Date;
-import java.sql.Timestamp;
 
 public class CreateItemServlet extends HttpServlet {
     private final ItemHibernate store = ItemHibernate.instOf();
@@ -26,10 +24,9 @@ public class CreateItemServlet extends HttpServlet {
         resp.setContentType("text/html");
         String description = req.getParameter("description");
         String ids = req.getParameter("categories");
-        Timestamp created = new Timestamp(new Date().getTime());
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
-        Item item = Item.of(description, created, user);
+        Item item = Item.of(description, user);
         for (String id : ids.split(" ")) {
             Category category = categoryStore.findById(Integer.parseInt(id));
             item.addCategory(category);
